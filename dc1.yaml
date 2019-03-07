@@ -1,0 +1,86 @@
+piVersion: v1
+kind: DeploymentConfig
+metadata:
+  name: sample-python-web
+  namespace: probe-demo
+  selfLink: /oapi/v1/namespaces/probe-demo/deploymentconfigs/sample-python-web
+  uid: db265865-19f6-11e7-9e13-005056a70865
+  resourceVersion: '6065899'
+  generation: 40
+  creationTimestamp: '2017-04-05T11:56:08Z'
+  labels:
+    app: sample-python-web
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+spec:
+  strategy:
+    type: Rolling
+    rollingParams:
+      updatePeriodSeconds: 1
+      intervalSeconds: 1
+      timeoutSeconds: 600
+      maxUnavailable: 0%
+      maxSurge: 75%
+    resources: {}
+  triggers:
+    - type: ConfigChange
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+          - sample-python-web
+        from:
+          kind: ImageStreamTag
+          namespace: probe-demo
+          name: 'sample-python-web:latest'
+        lastTriggeredImage: >-
+          172.30.154.241:5000/probe-demo/sample-python-web@sha256:ca482a24a90da5746e7ff78ee90dcb81be8fd6da04ceab2d749e9388c0c8fcb0
+  replicas: 2
+  test: false
+  selector:
+    app: sample-python-web
+    deploymentconfig: sample-python-web
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: sample-python-web
+        deploymentconfig: sample-python-web
+      annotations:
+        openshift.io/container.sample-python-web.image.entrypoint: '["container-entrypoint","/bin/sh","-c","$STI_SCRIPTS_PATH/usage"]'
+        openshift.io/generated-by: OpenShiftNewApp
+    spec:
+      containers:
+        - name: sample-python-web
+          image: >-
+            172.30.154.241:5000/probe-demo/sample-python-web@sha256:ca482a24a90da5746e7ff78ee90dcb81be8fd6da04ceab2d749e9388c0c8fcb0
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources: {}
+          livenessProbe:
+            exec:
+              command:
+                - cat
+                - /tmp/status.up
+            initialDelaySeconds: 45
+            timeoutSeconds: 1
+            periodSeconds: 1
+            successThreshold: 1
+            failureThreshold: 1
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 1
+            timeoutSeconds: 1
+            periodSeconds: 25
+            successThreshold: 1
+            failureThreshold: 3
+          terminationMessagePath: /dev/termination-log
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
