@@ -12,7 +12,7 @@ application = Flask(__name__)
 logger = logging.getLogger(__name__)
 #Amount to time to sleep, prior to starting web.  This is intended to simulate
 #applicaiton startup or deployment
-init_sleep=30
+init_sleep=10
 #This is intended to signal that the applicaiton is up and healthy.
 #If the file does not exist, one can assume that the app is starting, or dead
 status_file='/tmp/status.up'
