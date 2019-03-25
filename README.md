@@ -6,7 +6,7 @@ Original code from: https://github.com/OpenShiftDemos/os-sample-python
 
 ## Modifications
 
-This sample has been modified to be a sample Python application with Kubernetes Liveness and Redness probes.
+This sample has been modified to be a sample Python application with Kubernetes Liveness and Readiness probes.
 
 
 ## Deployment Steps
