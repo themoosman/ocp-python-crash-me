@@ -6,7 +6,7 @@ metadata:
   annotations:
     description: Build Config for a sample Python application.
 labels:
-  name: slack-bot-ngrok
+  name: python-crash-me-template
 objects:
 - apiVersion: v1
   kind: ImageStream
@@ -177,7 +177,7 @@ objects:
 
 parameters:
   - name: GIT_URI
-    description: The ngrok Git URI.
+    description: The Git URI.
     value: "https://github.com/themoosman/ocp-python-crash-me.git"
     required: true
   - name: GIT_REF
