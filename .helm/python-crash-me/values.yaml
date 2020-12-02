@@ -1,0 +1,6 @@
+build_ns: true
+git_uri: https://github.com/themoosman/ocp-python-crash-me.git
+git_ref: master
+base_is_name: python:3.8-ubi8
+environment: dev
+image_namespace: python-crash-me-dev

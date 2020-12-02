@@ -1,0 +1,77 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  generation: 1
+  labels:
+    app: {{ .Release.Name }}
+    app.kubernetes.io/name: {{ .Release.Name }}
+  name: {{ .Release.Name }}
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    app: {{ .Release.Name }}
+    deploymentconfig: {{ .Release.Name }}
+  strategy:
+    activeDeadlineSeconds: 21600
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      annotations:
+      labels:
+        app: {{ .Release.Name }}
+        deploymentconfig: {{ .Release.Name }}
+    spec:
+      containers:
+      - image: {{ .Release.Name }}
+        imagePullPolicy: Always
+        env:
+        - name: DEPLOY_ENV
+          value: {{ .Values.environment }}
+        livenessProbe:
+          exec:
+            command:
+            - cat
+            - /tmp/status.up
+          failureThreshold: 1
+          initialDelaySeconds: 25
+          periodSeconds: 1
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: {{ .Release.Name }}
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 1
+          periodSeconds: 25
+          successThreshold: 1
+          timeoutSeconds: 1
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+  test: false
+  triggers:
+  - type: ImageChange
+    imageChangeParams:
+      automatic: false
+      containerNames:
+      - {{ .Release.Name }}
+      from:
+        kind: ImageStreamTag
+        name: {{ .Release.Name }}:latest
+        namespace: {{ .Values.image_namespace }}

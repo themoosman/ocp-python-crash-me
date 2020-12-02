@@ -1,0 +1,31 @@
+{{- if .Values.build_ns }}
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+  labels:
+    app: {{ .Release.Name }}
+    app.kubernetes.io/name: {{ .Release.Name }}
+  name: {{ .Release.Name }}
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: {{ .Release.Name }}:latest
+  runPolicy: Serial
+  source:
+    git:
+      uri: {{ .Values.git_uri }}
+      ref: {{ .Values.git_ref }}
+    type: Git
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: {{ .Values.base_is_name }}
+        namespace: openshift
+    type: Source
+  successfulBuildsHistoryLimit: 5
+{{- end }}

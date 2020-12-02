@@ -48,7 +48,7 @@ parameters:
     value: "master"
   - name: IMAGE_NAME
     description: The name of the image.
-    value: py-crash-me
+    value: python-crash-me
     required: true
   - name: IMAGE_VERSION
     description: The version of the images to use.
@@ -58,7 +58,7 @@ parameters:
     required: true
   - name: APP_NAME
     description: Application name.
-    value: py-crash-me
+    value: python-crash-me
     required: true
   - name: BASE_IS_NAME
     description: Name of the application base imaagestream.

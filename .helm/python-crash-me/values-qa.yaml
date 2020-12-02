@@ -1,0 +1,3 @@
+build_ns: false
+environment: qa
+image_namespace: python-crash-me-dev

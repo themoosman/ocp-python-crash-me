@@ -62,7 +62,7 @@ objects:
               - cat
               - /tmp/status.up
             failureThreshold: 1
-            initialDelaySeconds: 45
+            initialDelaySeconds: 25
             periodSeconds: 1
             successThreshold: 1
             timeoutSeconds: 1
@@ -158,7 +158,7 @@ objects:
 parameters:
   - name: IMAGE_NAME
     description: The name of the image.
-    value: py-crash-me
+    value: python-crash-me
     required: true
   - name: IMAGE_VERSION
     description: The version of the images to use.
@@ -171,12 +171,12 @@ parameters:
     required: true
   - name: APP_NAME
     description: Application name.
-    value: py-crash-me
+    value: python-crash-me
     required: true
   - description: Name of a service account that can deploy to this project
     name: SA_NAME
     required: true
-    value: py-crash-sa
+    value: python-crash-sa
   - description: Test ENV Var
     name: ENVIRONMENT
     required: true

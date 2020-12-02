@@ -1,0 +1,20 @@
+{{- if not .Values.build_ns }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  creationTimestamp: null
+  labels:
+    template: {{ .Release.Name }}
+  name:  {{ .Release.Name }}-edit-{{ .Values.environment }}
+  namespace: {{ .Values.image_namespace }}
+groupNames: null
+userNames: null
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: system:serviceaccounts:{{ .Release.Namespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: 'system:image-puller'
+{{- end }}

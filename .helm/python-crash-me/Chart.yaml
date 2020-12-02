@@ -1,0 +1,4 @@
+apiVersion: v2
+name: python-crash-me
+description: A chart for the python-crash-me app
+version: 1.0.0
