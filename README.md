@@ -68,7 +68,7 @@ oc new-project python-crash-me-qa
 helm install python-crash-me .helm/python-crash-me/ --namespace python-crash-me-qa --values .helm/python-crash-me/values-qa.yaml
 
 #Tag the images from DEV to QA
-oc tag py-crash-me-dev/py-crash-me:latest py-crash-me-qa/py-crash-me:latest
+oc tag python-crash-me-dev/python-crash-me:latest python-crash-me-qa/python-crash-me:latest
 
 #Rollout to QA
 oc rollout latest dc/python-crash-me
