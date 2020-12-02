@@ -13,7 +13,7 @@ This sample has been modified to be a sample Python application with Kubernetes 
 
 To deploy this sample Python web application from the OpenShift use the provided template.
 
-Template parameters can be found here.  https://github.com/themoosman/ocp-python-crash-me/blob/master/ocp/deployment.yaml#L155-L176
+Template parameters can be found here.  https://github.com/themoosman/ocp-python-crash-me/blob/master/.ocp/deployment.yaml#L155-L176
 
 ```
 #Create the DEV project
