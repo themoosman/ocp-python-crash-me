@@ -51,8 +51,11 @@ objects:
           deploymentconfig: ${APP_NAME}
       spec:
         containers:
-        - image: ${NAMESPACE}/${IMAGE_NAME}:${IMAGE_VERSION}
+        - image: ${IMAGE_NAME}
           imagePullPolicy: Always
+          env:
+          - name: DEPLOY_ENV
+            value: ${ENVIRONMENT}
           livenessProbe:
             exec:
               command:
@@ -85,16 +88,16 @@ objects:
         terminationGracePeriodSeconds: 30
     test: false
     triggers:
-    - type: ConfigChange
-    - imageChangeParams:
-        automatic: true
+    - type: ImageChange
+      imageChangeParams:
+        automatic: false
         containerNames:
         - ${IMAGE_NAME}
         from:
           kind: ImageStreamTag
-          name: ${IMAGE_NAME}:latest
+          name: ${IMAGE_NAME}:${IMAGE_VERSION}
           namespace: ${NAMESPACE}
-      type: ImageChange
+      
 - apiVersion: v1
   kind: Service
   metadata:
@@ -174,3 +177,6 @@ parameters:
     name: SA_NAME
     required: true
     value: py-crash-sa
+  - description: Test ENV Var
+    name: ENVIRONMENT
+    required: true

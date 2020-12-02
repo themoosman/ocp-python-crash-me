@@ -23,7 +23,7 @@ oc new-project py-crash-me-dev
 oc process -f build.yaml -p NAMESPACE=py-crash-me-dev | oc create -f -
 
 #Create the DEV deployment resources
-oc process -f deployment.yaml -p NAMESPACE=py-crash-me-dev -p IMAGE_NAMESPACE=py-crash-me-dev | oc create -f -
+oc process -f deployment.yaml -p NAMESPACE=py-crash-me-dev -p IMAGE_NAMESPACE=py-crash-me-dev -p ENVIRONMENT=dev | oc create -f -
 
 #Start the build
 oc start-build py-crash-me
@@ -35,7 +35,7 @@ oc rollout latest dc/py-crash-me
 oc new-project py-crash-me-qa
 
 #Create the QA deployment resources
-oc process -f deployment.yaml -p NAMESPACE=py-crash-me-qa -p IMAGE_NAMESPACE=py-crash-me-dev | oc create -f -
+oc process -f deployment.yaml -p NAMESPACE=py-crash-me-qa -p IMAGE_NAMESPACE=py-crash-me-dev -p ENVIRONMENT=qa | oc create -f -
 
 #Tag the images from DEV to QA
 oc tag py-crash-me-dev/py-crash-me:latest py-crash-me-qa/py-crash-me:latest

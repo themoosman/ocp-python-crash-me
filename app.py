@@ -32,6 +32,10 @@ def healthz():
     #i.e. database connection, queue connection, service connection, etc
     return "OK\r\n"
 
+@application.route("/env")
+def env():
+    return os.environ['DEPLOY_ENV']
+
 @application.route('/badhealthz')
 def badhealtz():
     #Endpoint for a bad health check, just return a HTTP error code > 400
