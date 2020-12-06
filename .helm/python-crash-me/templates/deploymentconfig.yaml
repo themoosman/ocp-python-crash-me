@@ -74,4 +74,4 @@ spec:
       from:
         kind: ImageStreamTag
         name: {{ .Release.Name }}:latest
-        namespace: {{ .Values.image_namespace }}
+        namespace: {{ .Release.Namespace }}

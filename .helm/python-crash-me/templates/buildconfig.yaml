@@ -17,8 +17,8 @@ spec:
   runPolicy: Serial
   source:
     git:
-      uri: {{ .Values.git_uri }}
-      ref: {{ .Values.git_ref }}
+      uri: {{ .Values.git.uri }}
+      ref: {{ .Values.git.ref }}
     type: Git
   strategy:
     sourceStrategy:
