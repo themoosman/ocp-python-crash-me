@@ -53,7 +53,7 @@ oc rollout latest dc/python-crash-me
 oc new-project python-crash-me-dev
 
 #To deploy the build and deployment components
-helm install python-crash-me .helm/python-crash-me/ --namespace python-crash-me-dev --values .helm/python-crash-me/values.yaml
+helm upgrade --install python-crash-me .helm/python-crash-me/ --namespace python-crash-me-dev --values .helm/python-crash-me/values.yaml
 
 #Start the build
 oc start-build python-crash-me
@@ -65,7 +65,7 @@ oc rollout latest dc/python-crash-me
 oc new-project python-crash-me-qa
 
 #Create the QA deployment resources
-helm install python-crash-me .helm/python-crash-me/ --namespace python-crash-me-qa --values .helm/python-crash-me/values-qa.yaml
+helm upgrade --install python-crash-me .helm/python-crash-me/ --namespace python-crash-me-qa --values .helm/python-crash-me/values-qa.yaml
 
 #Tag the images from DEV to QA
 oc tag python-crash-me-dev/python-crash-me:latest python-crash-me-qa/python-crash-me:latest
