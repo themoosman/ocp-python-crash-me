@@ -1,0 +1,12 @@
+apiVersion: v1
+entries:
+  python-crash-me:
+  - apiVersion: v2
+    created: "2021-05-06T02:48:31.825887369-05:00"
+    description: A chart for the python-crash-me app
+    digest: 1da5299e2a23dc33ed58e25ca2738c9b084b7ac3f9d4e9402d54c2067b855437
+    name: python-crash-me
+    urls:
+    - https://github.com/themoosman/ocp-python-crash-me/releases/download/python-crash-me-1.0.0/python-crash-me-1.0.0.tgz
+    version: 1.0.0
+generated: "2021-05-06T02:48:31.8258932-05:00"
